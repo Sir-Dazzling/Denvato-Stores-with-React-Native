@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "RN",
-    "slug": "RN",
+    "name": "DenvatoStores",
+    "slug": "DenvatoStores",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
