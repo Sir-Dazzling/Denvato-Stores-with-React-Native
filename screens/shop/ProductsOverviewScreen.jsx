@@ -1,6 +1,8 @@
 import React from 'react';
-import {FlatList, Text} from 'react-native';
+import {FlatList,Text, ScrollView, View} from 'react-native';
 import {useSelector} from 'react-redux';
+
+import ProductItem from '../../components/shop/ProductItem';
 
 const ProductsOverviewScreen = (props) => 
 {
@@ -8,8 +10,9 @@ const ProductsOverviewScreen = (props) =>
     const products = useSelector(state => state.products.allProducts); 
 
     return (
-        //Using a Flatlist to display potentially a long list of products
-        <FlatList data = {products} renderItem = {itemData => <Text>{itemData.item.title}</Text>} />
+        <ScrollView>
+            <FlatList data = {products}  renderItem = {itemData => <ProductItem image = {itemData.item.imageUrl} price = {itemData.item.price} title = {itemData.item.title} onViewDetail = {() => {}} onAddToCart = {() => {}} />} />
+        </ScrollView>
     );
 };
 
