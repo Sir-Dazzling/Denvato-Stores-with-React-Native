@@ -17,6 +17,7 @@ class BackgroundCarousel extends React.Component
         };
     };
 
+    //Mouting the component
     componentDidMount = () => 
     {
         setInterval(() => 
@@ -69,6 +70,7 @@ class BackgroundCarousel extends React.Component
     };
 };
 
+//Creating the StyleSheet
 const styles = StyleSheet.create({
     backgroundImage: 
     {
