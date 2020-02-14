@@ -1,12 +1,10 @@
 import React from 'react';
-import {View, StyleSheet,ScrollView, Dimensions} from 'react-native';
+import {View, StyleSheet,Text,ScrollView, Dimensions} from 'react-native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
-import {Ionicons} from '@expo/vector-icons';
 
 import HeaderButton from '../../components/HeaderButton';
 import CustomSearchBar from '../../components/SearchBar';
 import SectionHeader from '../../components/SectionHeader';
-import Colors from '../../constants/Colors';
 
 //Getting dimension width of device
 const DEVICE_WIDTH = Dimensions.get("window").width;
