@@ -9,11 +9,7 @@ const SectionHeader = (props) =>
     return (
         <View style = {styles.container}>
             <Text style = {{fontWeight: "bold"}}>{props.sectionTitle}</Text>
-            <TouchableOpacity onPress = {() => 
-                {
-                    //Added a param of categoryId
-                    props.navigation.navigate({routeName: "CategoryProductList", params:{categoryId: itemData.item.id}});
-                }}>
+            <TouchableOpacity onPress = {props.onSelect}>
                 <View style = {styles.seeAll}>
                     <Text>See All</Text>
                     <Ionicons name = {props.vectorName} size = {18} color = {Colors.primaryColor}/>

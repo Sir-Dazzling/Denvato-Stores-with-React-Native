@@ -1,8 +1,10 @@
 import React from 'react';
-import {FlatList, ScrollView} from 'react-native';
+import {FlatList} from 'react-native';
+import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import {useSelector} from 'react-redux';
 
 import ProductItem from '../../components/ProductItem';
+import HeaderButton from '../../components/HeaderButton';
 
 const ProductsOverviewScreen = (props) => 
 {
@@ -16,9 +18,27 @@ const ProductsOverviewScreen = (props) =>
     );
 };
 
-ProductsOverviewScreen.navigationOptions = 
+ProductsOverviewScreen.navigationOptions = (navigationData) =>
 {
-    headerTitle: "All Products"
+    return {
+        headerTitle: "All Products",
+        headerLeft: () => 
+        (
+            <HeaderButtons HeaderButtonComponent = {HeaderButton} >
+                <Item title = "Menu" iconName = "ios-menu" onPress = {() => {
+                    
+                    }}/>
+            </HeaderButtons>
+        ),
+        headerRight: () => 
+        (
+            <HeaderButtons HeaderButtonComponent = {HeaderButton} >
+                <Item title = "Cart" iconName = "ios-cart" onPress = {() => {
+                    
+                    }}/>
+            </HeaderButtons>
+        )
+    };
 };
 
 export default ProductsOverviewScreen;
