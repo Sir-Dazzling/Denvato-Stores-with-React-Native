@@ -100,4 +100,3 @@ const styles = StyleSheet.create({
 });
 
 export {BackgroundCarousel};
-

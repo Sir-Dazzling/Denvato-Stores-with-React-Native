@@ -1,5 +1,5 @@
 import React from 'react';
-import {View,Text,Image,StyleSheet,TouchableOpacity} from 'react-native';
+import {View,Text,StyleSheet,TouchableOpacity} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
@@ -9,7 +9,11 @@ const SectionHeader = (props) =>
     return (
         <View style = {styles.container}>
             <Text style = {{fontWeight: "bold"}}>{props.sectionTitle}</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress = {() => 
+                {
+                    //Added a param of categoryId
+                    props.navigation.navigate({routeName: "CategoryProductList", params:{categoryId: itemData.item.id}});
+                }}>
                 <View style = {styles.seeAll}>
                     <Text>See All</Text>
                     <Ionicons name = {props.vectorName} size = {18} color = {Colors.primaryColor}/>

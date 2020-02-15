@@ -1,8 +1,8 @@
 import React from 'react';
-import {FlatList,Text, ScrollView, View} from 'react-native';
+import {FlatList, ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
 
-import ProductItem from '../../components/shop/ProductItem';
+import ProductItem from '../../components/ProductItem';
 
 const ProductsOverviewScreen = (props) => 
 {
@@ -10,9 +10,9 @@ const ProductsOverviewScreen = (props) =>
     const products = useSelector(state => state.products.allProducts); 
 
     return (
-        <ScrollView>
+        
             <FlatList data = {products}  renderItem = {itemData => <ProductItem image = {itemData.item.imageUrl} price = {itemData.item.price} title = {itemData.item.title} onViewDetail = {() => {}} onAddToCart = {() => {}} />} />
-        </ScrollView>
+        
     );
 };
 

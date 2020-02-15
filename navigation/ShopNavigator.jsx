@@ -5,6 +5,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 
 import HomeScreen from '../screens/shop/HomeScreen';
 import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
+import CategoryProductList from '../screens/shop/CategoryProductList';
 import Colors from '../constants/Colors';
 
 //Creating a Stack Navigator Element
@@ -16,6 +17,10 @@ const ProductsNavigator = createStackNavigator({
     Products: 
     {
         screen: ProductsOverviewScreen
+    },
+    ProductsList: 
+    {
+        screen: CategoryProductList
     }
 },
 {
