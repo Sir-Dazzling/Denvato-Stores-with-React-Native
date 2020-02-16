@@ -10,6 +10,7 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 import HomeScreen from '../screens/shop/HomeScreen';
 import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
 import CategoryProductList from '../screens/shop/CategoryProductList';
+import ProductDetailsScreen from '../screens/shop/ProductDetailsScreen';
 import Colors from '../constants/Colors';
 
 //Configuring default Nav Stack styling
@@ -37,10 +38,7 @@ const ProductsNavigator = createStackNavigator({
     {
         screen: HomeScreen
     },
-    Products: 
-    {
-        screen: ProductsOverviewScreen
-    },
+
     ProductsList: 
     {
         screen: CategoryProductList
@@ -66,7 +64,11 @@ const allProductsNavigator = createStackNavigator({
     allProducts: 
     {
         screen: ProductsOverviewScreen
-    }
+    },
+    ProductDetails: 
+    {
+        screen: ProductDetailsScreen
+    },
 },
 {
     defaultNavigationOptions: defaultStackNavOptions

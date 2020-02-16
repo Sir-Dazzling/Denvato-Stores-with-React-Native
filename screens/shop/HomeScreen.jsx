@@ -35,7 +35,7 @@ const HomeScreen = (props) =>
                 <View style = {styles.sectionHeaderContainer}>
                     <SectionHeader sectionTitle = "Categories" vectorName = "ios-arrow-forward" onSelect = {() => 
                         {
-                            props.navigation.navigate({routeName: "Products"});
+                            
                         }}/>
                 </View>
                <FlatList horizontal = {true} data = {CATEGORIES} renderItem = {renderCategoryItems} showsHorizontalScrollIndicator = {false} />

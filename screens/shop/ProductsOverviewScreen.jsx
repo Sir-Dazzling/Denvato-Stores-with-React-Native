@@ -13,7 +13,7 @@ const ProductsOverviewScreen = (props) =>
 
     return (
         
-            <FlatList data = {products}  renderItem = {itemData => <ProductItem image = {itemData.item.imageUrl} price = {itemData.item.price} title = {itemData.item.title} onViewDetail = {() => {}} onAddToCart = {() => {}} />} />
+            <FlatList data = {products}  renderItem = {itemData => <ProductItem image = {itemData.item.imageUrl} price = {itemData.item.price} title = {itemData.item.title} onViewDetail = {() => {props.navigation.navigate("ProductDetails", {productId: itemData.item.id, productTitle: itemData.item.title})}} onAddToCart = {() => {}} />} />
         
     );
 };
