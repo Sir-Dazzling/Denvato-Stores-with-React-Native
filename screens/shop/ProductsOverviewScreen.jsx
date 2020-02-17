@@ -26,7 +26,7 @@ ProductsOverviewScreen.navigationOptions = (navigationData) =>
         (
             <HeaderButtons HeaderButtonComponent = {HeaderButton} >
                 <Item title = "Menu" iconName = "ios-menu" onPress = {() => {
-                    
+                    navigationData.navigation.toggleDrawer();
                     }}/>
             </HeaderButtons>
         ),
