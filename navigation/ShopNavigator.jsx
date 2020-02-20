@@ -11,6 +11,7 @@ import HomeScreen from '../screens/shop/HomeScreen';
 import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
 import CategoryProductList from '../screens/shop/CategoryProductList';
 import ProductDetailsScreen from '../screens/shop/ProductDetailsScreen';
+import CartScreen from '../screens/shop/CartScreen';
 import Colors from '../constants/Colors';
 
 //Configuring default Nav Stack styling
@@ -69,6 +70,10 @@ const allProductsNavigator = createStackNavigator({
     {
         screen: ProductDetailsScreen
     },
+    Cart: 
+    {
+        screen: CartScreen
+    }
 },
 {
     defaultNavigationOptions: defaultStackNavOptions
