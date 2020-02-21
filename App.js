@@ -8,13 +8,15 @@ import ShopNavigator from './navigation/ShopNavigator';
 import productsReducer from './store/reducers/Products';
 import categoriesReducer from './store/reducers/Categories';
 import cartReducer from './store/reducers/Cart';
+import ordersReducer from './store/reducers/Orders';
 
 
 //Creating a Root Reducer element
 const rootReducer = combineReducers({
   products: productsReducer,
   categories: categoriesReducer,
-  cart: cartReducer
+  cart: cartReducer,
+  orders: ordersReducer
 });
 
 //Creating a Store element
