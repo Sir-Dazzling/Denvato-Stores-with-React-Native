@@ -8,3 +8,5 @@ class Order
         this.date = date;
     }
 };
+
+export default Order;

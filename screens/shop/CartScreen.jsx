@@ -40,6 +40,7 @@ const CartScreen = (props) =>
                     disabled = {cartItems.length === 0} 
                     onPress = {() => {
                         dispatch(orderActions.addOrder(cartItems, cartTotalAmount));
+                        props.navigation.navigate("userOrders");
                     }} />
             </View>
             <FlatList 

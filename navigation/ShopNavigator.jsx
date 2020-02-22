@@ -12,6 +12,7 @@ import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
 import CategoryProductList from '../screens/shop/CategoryProductList';
 import ProductDetailsScreen from '../screens/shop/ProductDetailsScreen';
 import CartScreen from '../screens/shop/CartScreen';
+import OrdersScreen from '../screens/shop/OrdersScreen';
 import Colors from '../constants/Colors';
 
 //Configuring default Nav Stack styling
@@ -76,6 +77,15 @@ const allProductsNavigator = createStackNavigator({
     }
 },
 {
+    defaultNavigationOptions: defaultStackNavOptions
+});
+
+const ordersNavigator = createStackNavigator({
+    Orders: 
+    {
+        screen: OrdersScreen
+    }
+},{
     defaultNavigationOptions: defaultStackNavOptions
 });
 
@@ -176,6 +186,14 @@ const MainNavigator =  createDrawerNavigator({
        navigationOptions: 
        {
            drawerLabel: "All Products"
+       }
+   },
+   userOrders: 
+   {
+       screen: ordersNavigator,
+       navigationOptions: 
+       {
+           drawerLabel: "Your Orders"
        }
    }
 },
