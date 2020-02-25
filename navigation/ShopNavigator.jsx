@@ -77,6 +77,17 @@ const allProductsNavigator = createStackNavigator({
     }
 },
 {
+    navigationOptions: 
+    {
+        //Putting icons to display at the side drawer
+        drawerIcon: drawerConfig => (
+            <Ionicons 
+                name = {Platform.OS === "android" ? "md-cart" : "ios-cart"}
+                size = {23}
+                color = {drawerConfig.tintColor}
+            />
+        )
+    },
     defaultNavigationOptions: defaultStackNavOptions
 });
 
@@ -85,7 +96,19 @@ const ordersNavigator = createStackNavigator({
     {
         screen: OrdersScreen
     }
-},{
+},
+{
+    navigationOptions: 
+    {
+        //Putting icons to display at the side drawer
+        drawerIcon: drawerConfig => (
+            <Ionicons 
+                name = {Platform.OS === "android" ? "md-create" : "ios-list"}
+                size = {23}
+                color = {drawerConfig.tintColor}
+            />
+        )
+    },
     defaultNavigationOptions: defaultStackNavOptions
 });
 
@@ -150,11 +173,22 @@ const tabScreenConfig =
 const shoppingBottomTabNavigator = Platform.OS === "android" ?
 createMaterialBottomTabNavigator(tabScreenConfig,
 {
-    activeTintColor: Colors.accentColor,
+    activeTintColor: Colors.tertiaryColor,
     shifting: true,
     barStyle: 
     {
-        backgroundColor: Colors.primaryColor 
+        backgroundColor: Colors.primaryColor
+    },
+    navigationOptions: 
+    {
+        //Putting icons to display at the side drawer
+        drawerIcon: (drawerConfig) => (
+            <Ionicons 
+                name = {Platform.OS === "android" ? "md-home" : "ios-home"}
+                size = {23}
+                color = {drawerConfig.tintColor}
+            />
+        )
     }
 }) 
 : createBottomTabNavigator(tabScreenConfig,
@@ -162,11 +196,22 @@ createMaterialBottomTabNavigator(tabScreenConfig,
     //Declaring a default tab styling
     tabBarOptions: 
     {
-        activeTintColor: Colors.accentColor,
+        activeTintColor: Colors.tertiaryColor,
         labelStyle: 
         {
             //fontFamily: "open-sans"
         }
+    },
+    navigationOptions: 
+    {
+        //Putting icons to display at the side drawer
+        drawerIcon: drawerConfig => (
+            <Ionicons 
+                name = {Platform.OS === "android" ? "md-home" : "ios-home"}
+                size = {23}
+                color = {drawerConfig.tintColor}
+            />
+        )
     }
 });
 
@@ -200,7 +245,7 @@ const MainNavigator =  createDrawerNavigator({
 {
     contentOptions: 
     {
-        activeTintColor: Colors.accentColor,
+        activeTintColor: Colors.secondaryColor,
         labelStyle: 
         {
             //fontFamily: "open-sans-bold"
