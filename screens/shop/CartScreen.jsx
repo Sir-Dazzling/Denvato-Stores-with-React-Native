@@ -61,6 +61,7 @@ const CartScreen = (props) =>
     );
 };
 
+//Setting Navigation for the screen. 
 CartScreen.navigationOptions = (navigationData) => 
 {
     return {
