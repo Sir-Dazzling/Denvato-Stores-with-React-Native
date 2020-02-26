@@ -107,7 +107,7 @@ const ordersNavigator = createStackNavigator({
         //Putting icons to display at the side drawer
         drawerIcon: drawerConfig => (
             <Ionicons 
-                name = {Platform.OS === "android" ? "md-create" : "ios-list"}
+                name = {Platform.OS === "android" ? "md-list" : "ios-list"}
                 size = {23}
                 color = {drawerConfig.tintColor}
             />
@@ -115,7 +115,6 @@ const ordersNavigator = createStackNavigator({
     },
     defaultNavigationOptions: defaultStackNavOptions
 });
-
 
 //Configuring the BottomTab element
 const tabScreenConfig = 
@@ -159,14 +158,14 @@ const tabScreenConfig =
             tabBarColor: Colors.primaryColor
         }
     },
-    Orders: 
+    Settings: 
     {
         screen: recentNavigator,
         navigationOptions:
         {
             tabBarIcon: (tabInfo) => 
             {
-                return <Ionicons name = "ios-basket" size = {25} color = {tabInfo.tintColor} />
+                return <Ionicons name = "ios-settings" size = {25} color = {tabInfo.tintColor} />
             },
             tabBarColor: Colors.accentColor
         }
