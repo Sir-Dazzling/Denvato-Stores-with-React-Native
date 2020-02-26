@@ -65,14 +65,6 @@ CategoryProductList.navigationOptions = (navigationData) =>
 
     return {
         headerTitle: selectedCategory.categoryTitle,
-        headerLeft: () => 
-        (
-            <HeaderButtons HeaderButtonComponent = {HeaderButton} >
-                <Item title = "Menu" iconName = "ios-menu" onPress = {() => {
-                    navigationData.navigation.toggleDrawer();
-                    }}/>
-            </HeaderButtons>
-        ),
         headerRight: () => 
         (
             <HeaderButtons HeaderButtonComponent = {HeaderButton} >

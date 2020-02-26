@@ -13,6 +13,7 @@ import CategoryProductList from '../screens/shop/CategoryProductList';
 import ProductDetailsScreen from '../screens/shop/ProductDetailsScreen';
 import CartScreen from '../screens/shop/CartScreen';
 import OrdersScreen from '../screens/shop/OrdersScreen';
+import AllProductsScreen from '../screens/admin/AllProductsScreen';
 import Colors from '../constants/Colors';
 
 //Configuring default Nav Stack styling
@@ -108,6 +109,28 @@ const ordersNavigator = createStackNavigator({
         drawerIcon: drawerConfig => (
             <Ionicons 
                 name = {Platform.OS === "android" ? "md-list" : "ios-list"}
+                size = {23}
+                color = {drawerConfig.tintColor}
+            />
+        )
+    },
+    defaultNavigationOptions: defaultStackNavOptions
+});
+
+//Admin Stack Navigator
+const adminNavigator = createStackNavigator({
+    adminProducts: 
+    {
+        screen: AllProductsScreen
+    }
+},
+{
+    navigationOptions: 
+    {
+        //Putting icons to display at the side drawer
+        drawerIcon: drawerConfig => (
+            <Ionicons 
+                name = {Platform.OS === "android" ? "md-contact" : "ios-contact"}
                 size = {23}
                 color = {drawerConfig.tintColor}
             />
@@ -242,6 +265,14 @@ const MainNavigator =  createDrawerNavigator({
        navigationOptions: 
        {
            drawerLabel: "Your Orders"
+       }
+   },
+   Admin: 
+   {
+       screen: adminNavigator,
+       navigationOptions: 
+       {
+          drawerLabel: "Admin" 
        }
    }
 },
