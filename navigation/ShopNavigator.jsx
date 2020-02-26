@@ -44,6 +44,10 @@ const ProductsNavigator = createStackNavigator({
     ProductsList: 
     {
         screen: CategoryProductList
+    },
+    homeCart: 
+    {
+        screen: CartScreen
     }
 },
 {
@@ -71,7 +75,7 @@ const allProductsNavigator = createStackNavigator({
     {
         screen: ProductDetailsScreen
     },
-    Cart: 
+    allProductsCart: 
     {
         screen: CartScreen
     }

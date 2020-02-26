@@ -42,7 +42,7 @@ ProductsDetailsScreen.navigationOptions = (navigationData) =>
         (
             <HeaderButtons HeaderButtonComponent = {HeaderButton} >
                 <Item title = "Cart" iconName = "ios-cart" onPress = {() => {
-                    
+                    navigationData.navigation.navigate("allProductsCart");
                     }}/>
             </HeaderButtons>
         )

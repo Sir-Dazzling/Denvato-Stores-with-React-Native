@@ -22,6 +22,7 @@ const CategoryProductList = (props) =>
     //Filtering the products depending on Category picked
     const displayedProducts = products.filter(product => product.categoryIds.indexOf(catId) >= 0)
 
+    //In case no product is found
     if (displayedProducts.length === 0) 
     {
       return (
@@ -77,7 +78,7 @@ CategoryProductList.navigationOptions = (navigationData) =>
             <HeaderButtons HeaderButtonComponent = {HeaderButton} >
                 <Item title = "Cart" iconName = "ios-cart" onPress = {() => 
                     {
-                      navigationData.navigation.navigate("Cart");
+                      navigationData.navigation.navigate("homeCart");
                     }}/>
             </HeaderButtons>
         )
