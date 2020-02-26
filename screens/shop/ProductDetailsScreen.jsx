@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, Button, StyleSheet, ScrollView} from 'react-native';
+import {View, Text, Image, Button, StyleSheet, ScrollView, ToastAndroid} from 'react-native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import {useSelector,useDispatch} from 'react-redux';
 
@@ -24,6 +24,8 @@ const ProductsDetailsScreen = (props) =>
                 <Text style = {styles.price}>Price: &#8358;{selectedProduct.price.toFixed(2)}</Text>
                 <Button color = {Colors.primary} title = "Add To Cart" onPress = {() => {
                     dispatch(cartActions.addToCart(selectedProduct));
+                    //Displaying a toast notification to show user added to cart successfully
+                    ToastAndroid.show(selectedProduct.title+" has been added to Cart", ToastAndroid.SHORT);
                 }} />
             </View>
             <View style = {styles.descriptionContainer}>

@@ -4337,6 +4337,11 @@ react-native-tab-view@^2.11.0:
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.13.0.tgz#23037aa43b0f8f682ddc20415a4baaaf6f82ae8f"
   integrity sha512-AeYbp/u91+D/C9+PmVEPBmFb3ixv8IkLMC3Sc5MajJ/fg0Zl3Of+BcEknBvTnKoe7Fj2y8+Qf9zorBbh5xzh4A==
 
+react-native-text-truncate@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-text-truncate/-/react-native-text-truncate-0.0.4.tgz#e718834bc73890cd8af0ef44956faea32eec35ad"
+  integrity sha512-OgcCBmCkyWMLcmo3Du2oI6gMtVazEj9eulMmGEceKYMd0KHGQHN1+gVSMuZ4oGZGF6DmjElW6NtFUqIahkPIQw==
+
 react-native-view-shot@3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/react-native-view-shot/-/react-native-view-shot-3.0.2.tgz#daccaec5b8038a680b17533ff7e72876e68c7d0d"

@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, Text, FlatList, ToastAndroid } from 'react-native';
+import { StyleSheet, View, Text, FlatList, ToastAndroid, Button } from 'react-native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {CATEGORIES} from '../../data/dummy-data';
 import HeaderButton from '../../components/HeaderButton';
 import ProductItem from '../../components/ProductItem';
+import Colors from '../../constants/Colors';
 import * as cartActions from '../../store/actions/Cart';
 
 const CategoryProductList = (props) => 
@@ -18,6 +19,15 @@ const CategoryProductList = (props) =>
 
     //Enabling useDispatch function
     const dispatch = useDispatch();
+
+    const selectItemHandler = (id, title) => 
+    {
+        props.navigation.navigate("ProductDetails", 
+            {
+                productId: id,
+                productTitle: title
+            });
+    };
 
     //Filtering the products depending on Category picked
     const displayedProducts = products.filter(product => product.categoryIds.indexOf(catId) >= 0)
@@ -33,20 +43,39 @@ const CategoryProductList = (props) =>
     }
 
     return (
-            <FlatList data = {displayedProducts} renderItem = {itemData => <ProductItem image = {itemData.item.imageUrl} price = {itemData.item.price} title = {itemData.item.title} onViewDetail = {() => 
-              {
-                props.navigation.navigate("ProductDetails",
-                {
-                  productId: itemData.item.id,
-                  productTitle: itemData.item.title
-                })
-              }}
-              onAddToCart = {() => 
-                {
-                  dispatch(cartActions.addToCart(itemData.item));
-                  //Displaying a toast notification to show user added to cart successfully
-                  ToastAndroid.show("Added to Cart", ToastAndroid.SHORT);
-                }} />} />
+            <FlatList 
+              data = {displayedProducts} 
+              renderItem = {itemData => (
+                <ProductItem 
+                  image = {itemData.item.imageUrl} 
+                  price = {itemData.item.price} 
+                  title = {itemData.item.title} 
+                  onSelect = {() => {
+                    selectItemHandler(itemData.item.id, itemData.item.title);
+                  }}
+                  onAddToCart = {() => 
+                  {
+                    dispatch(cartActions.addToCart(itemData.item));
+                    //Displaying a toast notification to show user added to cart successfully
+                    ToastAndroid.show("Added to Cart", ToastAndroid.SHORT);
+                  }}>
+                    <Button
+                      color={Colors.primary}
+                      title="View Details"
+                      onPress={() => {
+                        selectItemHandler(itemData.item.id, itemData.item.title);
+                      }}
+                    />
+                    <Button
+                      color = {Colors.primary}
+                      title = "Add To Cart"
+                      onPress = {() => {
+                        dispatch(cartActions.addToCart(itemData.item));
+                        //Displaying a toast notification to show user added to cart successfully
+                        ToastAndroid.show(itemData.item.title+" has been added to Cart", ToastAndroid.SHORT);
+                      }} 
+                        />
+                  </ProductItem>)} />
     );
 };
 

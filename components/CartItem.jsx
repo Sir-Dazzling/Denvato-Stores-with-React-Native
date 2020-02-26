@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     itemData: 
     {
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "flex-end"
     },
     quantity: 
     {
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     },
     mainText: 
     {
+       
         fontFamily: "open-sans-bold",
         fontSize: 16
     },

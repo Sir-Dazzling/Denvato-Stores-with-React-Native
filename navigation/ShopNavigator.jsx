@@ -13,7 +13,7 @@ import CategoryProductList from '../screens/shop/CategoryProductList';
 import ProductDetailsScreen from '../screens/shop/ProductDetailsScreen';
 import CartScreen from '../screens/shop/CartScreen';
 import OrdersScreen from '../screens/shop/OrdersScreen';
-import AllProductsScreen from '../screens/admin/AllProductsScreen';
+import AdminProductsScreen from '../screens/admin/AdminProductsScreen';
 import Colors from '../constants/Colors';
 
 //Configuring default Nav Stack styling
@@ -121,7 +121,7 @@ const ordersNavigator = createStackNavigator({
 const adminNavigator = createStackNavigator({
     adminProducts: 
     {
-        screen: AllProductsScreen
+        screen: AdminProductsScreen
     }
 },
 {
