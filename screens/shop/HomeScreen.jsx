@@ -25,7 +25,6 @@ const HomeScreen = (props) =>
         );
     };
 
-
     return (
         <ScrollView>
             <View style = {styles.container}>
