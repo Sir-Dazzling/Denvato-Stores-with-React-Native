@@ -18,7 +18,7 @@ const AdminProductsScreen = (props) =>
 
     const editProductHandler = (id) => 
     {
-        props.navigation.navigate("editProduct");
+        props.navigation.navigate("editProduct", {productId: id});
     };
 
     return (
@@ -81,7 +81,7 @@ AdminProductsScreen.navigationOptions = (navigationData) =>
                         iconName = {Platform.OS === "android" ? "md-create" : "ios-create"} 
                         onPress = {() => 
                         {
-                    
+                            navigationData.navigation.navigate("editProduct");
                         }}/>
             </HeaderButtons>
         )

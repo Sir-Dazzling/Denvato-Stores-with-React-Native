@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet,ScrollView, Dimensions, FlatList} from 'react-native';
+import {View, StyleSheet,ScrollView, FlatList} from 'react-native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 
 import HeaderButton from '../../components/HeaderButton';
@@ -7,9 +7,6 @@ import CustomSearchBar from '../../components/SearchBar';
 import SectionHeader from '../../components/SectionHeader';
 import CategoryItem from '../../components/CategoryItem';
 import {CATEGORIES} from '../../data/dummy-data';
-
-//Getting dimension width of device
-const DEVICE_WIDTH = Dimensions.get("window").width;
 
 const HomeScreen = (props) => 
 {
