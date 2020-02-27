@@ -6,10 +6,10 @@ const CartItem = (props) =>
 {
     return (
         <View style = {styles.cartItem}>
-            <Text style = {styles.itemData}>
+            <View style = {styles.itemData}>
                 <Text style = {styles.quantity}>{props.quantity} </Text>
                 <Text style = {styles.mainText}>{props.title}</Text>
-            </Text>
+            </View>
             <View style = {styles.itemData}>
                 <Text style = {styles.mainText}>&#8358;{props.amount.toFixed(2)}</Text>
                 {props.deletable && (
@@ -26,16 +26,16 @@ const CartItem = (props) =>
 const styles = StyleSheet.create({
     cartItem: 
     {
-        padding: 10,
+        padding: 15,
         backgroundColor: "white",
         flexDirection: "row",
         justifyContent: "space-between",
-        marginHorizontal: 10
+        marginHorizontal: -10
     },
     itemData: 
     {
         flexDirection: "row",
-        alignItems: "flex-end"
+        alignItems: "center"
     },
     quantity: 
     {
@@ -45,9 +45,8 @@ const styles = StyleSheet.create({
     },
     mainText: 
     {
-       
         fontFamily: "open-sans-bold",
-        fontSize: 16
+        fontSize: 15
     },
     deleteButton: 
     {

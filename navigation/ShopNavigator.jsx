@@ -14,6 +14,7 @@ import ProductDetailsScreen from '../screens/shop/ProductDetailsScreen';
 import CartScreen from '../screens/shop/CartScreen';
 import OrdersScreen from '../screens/shop/OrdersScreen';
 import AdminProductsScreen from '../screens/admin/AdminProductsScreen';
+import EditProductsScreen from '../screens/admin/EditProductsScreen';
 import Colors from '../constants/Colors';
 
 //Configuring default Nav Stack styling
@@ -122,6 +123,10 @@ const adminNavigator = createStackNavigator({
     adminProducts: 
     {
         screen: AdminProductsScreen
+    },
+    editProduct: 
+    {
+        screen: EditProductsScreen
     }
 },
 {

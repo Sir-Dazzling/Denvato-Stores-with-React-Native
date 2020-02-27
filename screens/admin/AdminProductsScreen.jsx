@@ -1,24 +1,24 @@
 import React from 'react';
-import {FlatList, Platform, Button} from 'react-native';
-import {useSelector} from 'react-redux';
+import {FlatList, Platform, Button, ToastAndroid} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 
 import HeaderButton from '../../components/HeaderButton';
 import ProductItem from '../../components/ProductItem';
 import Colors from '../../constants/Colors';
+import * as productActions from '../../store/actions/Products';
 
 const AdminProductsScreen = (props) => 
 {
     //Getting all products using concept of Hooks
     const adminProducts = useSelector(state => state.products.adminProducts);
 
-    const selectItemHandler = (id, title) => 
+    //Enabling useDispatch function
+    const dispatch = useDispatch();
+
+    const editProductHandler = (id) => 
     {
-        props.navigation.navigate("ProductDetails", 
-            {
-                productId: id,
-                productTitle: title
-            });
+        props.navigation.navigate("editProduct");
     };
 
     return (
@@ -30,23 +30,24 @@ const AdminProductsScreen = (props) =>
                     title = {itemData.item.title}
                     image = {itemData.item.imageUrl} 
                     price = {itemData.item.price}
-                    onViewDetail = {() => {}}
-                    onAddToCart = {() => {}} 
+                    onSelect = {() => {
+                        editProductHandler(itemData.item.id);
+                    }} 
                 >
                     <Button
                         color={Colors.primary}
-                        title="View Details"
+                        title="Edit Product"
                         onPress={() => {
-                            selectItemHandler(itemData.item.id, itemData.item.title);
+                            editProductHandler(itemData.item.id)
                         }}
                         />
                     <Button
                         color = {Colors.primary}
-                        title = "Add To Cart"
+                        title = "Delete Product"
                         onPress = {() => {
-                            dispatch(cartActions.addToCart(itemData.item));
+                            dispatch(productActions.deleteProduct(itemData.item.id));
                             //Displaying a toast notification to show user added to cart successfully
-                            ToastAndroid.show(itemData.item.title+" has been added to Cart", ToastAndroid.SHORT);
+                            ToastAndroid.show(itemData.item.title+" has been deleted", ToastAndroid.SHORT);
                         }} 
                         />  
                 </ProductItem>
@@ -70,6 +71,18 @@ AdminProductsScreen.navigationOptions = (navigationData) =>
                     {
                         navigationData.navigation.toggleDrawer();
                     }}/>
+            </HeaderButtons>
+        ),
+        headerRight: () => 
+        (
+            <HeaderButtons HeaderButtonComponent = {HeaderButton} >
+                    <Item
+                        title = "Menu"
+                        iconName = {Platform.OS === "android" ? "md-create" : "ios-create"} 
+                        onPress = {() => 
+                        {
+                    
+                        }}/>
             </HeaderButtons>
         )
     };
