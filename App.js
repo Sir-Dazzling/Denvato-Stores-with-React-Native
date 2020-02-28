@@ -10,7 +10,6 @@ import categoriesReducer from './store/reducers/Categories';
 import cartReducer from './store/reducers/Cart';
 import ordersReducer from './store/reducers/Orders';
 
-
 //Creating a Root Reducer element
 const rootReducer = combineReducers({
   products: productsReducer,

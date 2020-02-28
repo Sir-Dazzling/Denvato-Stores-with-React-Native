@@ -15,7 +15,7 @@ const CategoryProductList = (props) =>
     const catId = props.navigation.getParam("categoryId");
 
     //Getting All Products from Reducers with Hooks
-    const products = useSelector(state => state.products.allProducts);
+    const products = useSelector(state => state.products.availableProducts);
 
     //Enabling useDispatch function
     const dispatch = useDispatch();

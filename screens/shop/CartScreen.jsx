@@ -3,6 +3,7 @@ import {View,Text,FlatList,Button, StyleSheet} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux'
 
 import CartItem from '../../components/CartItem';
+import Card from '../../components/Card';
 import Colors from '../../constants/Colors';
 import * as cartActions from '../../store/actions/Cart';
 import * as orderActions from '../../store/actions/Orders'; 
@@ -30,7 +31,7 @@ const CartScreen = (props) =>
 
     return (
         <View style = {styles.screen}>
-            <View style = {styles.summary}>
+            <Card style = {styles.summary}>
                 <Text style = {styles.summaryText}>
                     Total:{''} <Text style = {styles.amount}>&#8358;{Math.round(cartTotalAmount.toFixed(2) * 100) / 100}</Text>
                 </Text>
@@ -42,7 +43,7 @@ const CartScreen = (props) =>
                         dispatch(orderActions.addOrder(cartItems, cartTotalAmount));
                         props.navigation.navigate("userOrders");
                     }} />
-            </View>
+            </Card>
             <FlatList 
                 data = {cartItems} 
                 keyExtractor = {item => item.productId} 
@@ -81,14 +82,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         marginBottom: 20,
-        padding: 10,
-        shadowColor: "black",
-        shadowOpacity: 0.26,
-        shadowOffset: {width: 0, height: 2},
-        shadowRadius: 8,
-        elevation: 5,
-        borderRadius: 10,
-        backgroundColor: "white"
+        padding: 10
     },
     summaryText: 
     {

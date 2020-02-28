@@ -13,7 +13,7 @@ const ProductsDetailsScreen = (props) =>
     const productId = props.navigation.getParam("productId");
 
     //Getting selected product from reducers with hooks
-    const selectedProduct = useSelector(state => state.products.allProducts).find(prod => prod.id === productId);
+    const selectedProduct = useSelector(state => state.products.availableProducts).find(prod => prod.id === productId);
 
     const dispatch = useDispatch();
 
