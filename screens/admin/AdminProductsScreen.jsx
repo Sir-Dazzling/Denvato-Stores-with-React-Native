@@ -6,9 +6,9 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../../components/HeaderButton';
 import ProductItem from '../../components/ProductItem';
 import Colors from '../../constants/Colors';
-import * as productsActions from '../../store/actions/Products';
+import * as productActions from '../../store/actions/Products';
 
-const UserProductsScreen = props => {
+const AdminProductsScreen = props => {
   const userProducts = useSelector(state => state.products.userProducts);
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ const UserProductsScreen = props => {
         text: 'Yes',
         style: 'destructive',
         onPress: () => {
-          dispatch(productsActions.deleteProduct(id));
+          dispatch(productActions.deleteProduct(id));
         }
       }
     ]);
@@ -60,10 +60,11 @@ const UserProductsScreen = props => {
   );
 };
 
-UserProductsScreen.navigationOptions = navData => {
+AdminProductsScreen.navigationOptions = navData => {
   return {
     headerTitle: 'Your Products',
-    headerLeft: (
+    headerLeft: () =>
+    (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Menu"
@@ -74,7 +75,8 @@ UserProductsScreen.navigationOptions = navData => {
         />
       </HeaderButtons>
     ),
-    headerRight: (
+    headerRight: () => 
+    (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Add"
@@ -88,4 +90,4 @@ UserProductsScreen.navigationOptions = navData => {
   };
 };
 
-export default UserProductsScreen;
+export default AdminProductsScreen;
