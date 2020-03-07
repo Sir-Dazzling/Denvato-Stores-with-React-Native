@@ -123,7 +123,7 @@ const EditProductScreen = (props) =>
             initiallyValid={!!editedProduct}
             required
           />
-          {editedProduct ? null : ( 
+          { ( 
           <Input
             id="categoryIds"
             label="Category ID"

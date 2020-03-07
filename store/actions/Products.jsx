@@ -10,8 +10,15 @@ export const fetchProducts = () =>
 {
   return async dispatch => {
     //Executing async code
-    //Fetching products from firebase server
+    try
+    {
+      //Fetching products from firebase server
     const response = await fetch("https://denvato-stores-mobile.firebaseio.com/products.json");
+
+    if(!response.ok)
+    {
+      throw new Error("Something went wrong!");
+    }
 
     const resData = await response.json();
     const loadedProducts = [];
@@ -23,12 +30,24 @@ export const fetchProducts = () =>
 
     console.log(resData);
     dispatch({type: SET_PRODUCTS, products: loadedProducts});
+    } catch(err)
+    {
+      //Send to custom analytics server
+      throw err;
+    }
+    
   };
 };
 
-export const deleteProduct = productId => 
+export const deleteProduct = (productId) => 
 {
-  return { type: DELETE_PRODUCT, pid: productId };
+  return async dispatch => {
+    await fetch(`https://denvato-stores-mobile.firebaseio.com/products/${productId}.json`, 
+    {
+      method: "DELETE"
+    });
+    dispatch({ type: DELETE_PRODUCT, pid: productId });
+  };
 };
 
 export const createProduct = (title, categoryIds, imageUrl, description, price) => 
@@ -70,15 +89,33 @@ export const createProduct = (title, categoryIds, imageUrl, description, price) 
   }
 };
 
-export const updateProduct = (id, title, categoryIds, imageUrl, description) => {
-  return {
-    type: UPDATE_PRODUCT,
-    pid: id,
-    productData: {
-      title,
-      categoryIds,
-      imageUrl,
-      description
-    }
+export const updateProduct = (id, title, categoryIds, imageUrl, description) => 
+{
+  return async dispatch => {
+     await fetch(`https://denvato-stores-mobile.firebaseio.com/products/${id}.json`, 
+    {
+      method: "PATCH",
+      headers: 
+      {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        title,
+        categoryIds,
+        imageUrl,
+        description
+      })
+    });
+
+    dispatch({
+      type: UPDATE_PRODUCT,
+      pid: id,
+      productData: {
+        title,
+        categoryIds,
+        imageUrl,
+        description
+      }
+    });
   };
 };
