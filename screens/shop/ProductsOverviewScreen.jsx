@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FlatList,Button,ToastAndroid} from 'react-native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import {useSelector, useDispatch} from 'react-redux';
@@ -6,6 +6,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import ProductItem from '../../components/ProductItem';
 import HeaderButton from '../../components/HeaderButton';
 import * as cartActions from '../../store/actions/Cart';
+import * as productActions from '../../store/actions/Products';
 import Colors from '../../constants/Colors';
 
 const ProductsOverviewScreen = (props) => 
@@ -14,7 +15,12 @@ const ProductsOverviewScreen = (props) =>
     const products = useSelector(state => state.products.availableProducts);
     
     //Enabling useDispatch function
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch();
+    
+    useEffect(() => 
+    {
+        dispatch(productActions.fetchProducts());
+    },[dispatch]);
 
     const selectItemHandler = (id, title) => 
     {

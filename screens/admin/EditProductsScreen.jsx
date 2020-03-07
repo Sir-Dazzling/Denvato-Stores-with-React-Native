@@ -48,17 +48,17 @@ const EditProductScreen = (props) =>
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
       title: editedProduct ? editedProduct.title : '',
+      categoryIds: editedProduct ? editedProduct.categoryIds : "",
       imageUrl: editedProduct ? editedProduct.imageUrl : '',
       description: editedProduct ? editedProduct.description : '',
-      price: '',
-      categoryIds: editedProduct ? editedProduct.categoryIds: ""
+      price: ''
     },
     inputValidities: {
       title: editedProduct ? true : false,
+      categoryIds: editedProduct ? true : false,
       imageUrl: editedProduct ? true : false,
       description: editedProduct ? true : false,
-      price: editedProduct ? true : false,
-      categoryIds: editedProduct ? true : false
+      price: editedProduct ? true : false
     },
     formIsValid: editedProduct ? true : false
   });
@@ -123,6 +123,18 @@ const EditProductScreen = (props) =>
             initiallyValid={!!editedProduct}
             required
           />
+          {editedProduct ? null : ( 
+          <Input
+            id="categoryIds"
+            label="Category ID"
+            errorText="Please enter a valid Category Id!"
+            keyboardType="default"
+            returnKeyType="next"
+            onInputChange={inputChangeHandler}
+            initialValue={editedProduct ? editedProduct.categoryIds : ''}
+            initiallyValid={!!editedProduct}
+            required
+          />)}
           <Input
             id="imageUrl"
             label="Image Url"
@@ -132,7 +144,6 @@ const EditProductScreen = (props) =>
             onInputChange={inputChangeHandler}
             initialValue={editedProduct ? editedProduct.imageUrl : ''}
             initiallyValid={!!editedProduct}
-            required
           />
           {editedProduct ? null : (
             <Input

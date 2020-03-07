@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {createStore, combineReducers} from 'redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import {AppLoading} from 'expo';
 import * as Font from 'expo-font';
+import ReduxThunk from 'redux-thunk';
 
 import ShopNavigator from './navigation/ShopNavigator';
 import productsReducer from './store/reducers/Products';
@@ -19,7 +20,7 @@ const rootReducer = combineReducers({
 });
 
 //Creating a Store element
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 //Fetching fonts
 const fetchFonts = () => 
