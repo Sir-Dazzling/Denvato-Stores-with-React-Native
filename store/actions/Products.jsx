@@ -42,10 +42,16 @@ export const fetchProducts = () =>
 export const deleteProduct = (productId) => 
 {
   return async dispatch => {
-    await fetch(`https://denvato-stores-mobile.firebaseio.com/products/${productId}.json`, 
+    const response = await fetch(`https://denvato-stores-mobile.firebaseio.com/products/${productId}.json`, 
     {
       method: "DELETE"
     });
+
+    if(!response.ok)
+    {
+      throw new Error("Something went wrong!");
+    }
+
     dispatch({ type: DELETE_PRODUCT, pid: productId });
   };
 };
@@ -92,7 +98,7 @@ export const createProduct = (title, categoryIds, imageUrl, description, price) 
 export const updateProduct = (id, title, categoryIds, imageUrl, description) => 
 {
   return async dispatch => {
-     await fetch(`https://denvato-stores-mobile.firebaseio.com/products/${id}.json`, 
+    const response = await fetch(`https://denvato-stores-mobile.firebaseio.com/products/${id}.json`, 
     {
       method: "PATCH",
       headers: 
@@ -106,6 +112,11 @@ export const updateProduct = (id, title, categoryIds, imageUrl, description) =>
         description
       })
     });
+
+    if(!response.ok)
+    {
+      throw new Error("Something went wrong!");
+    }
 
     dispatch({
       type: UPDATE_PRODUCT,

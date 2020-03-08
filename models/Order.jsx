@@ -13,7 +13,7 @@ class Order
     //To get LocalDate from OS
     get readableDate() 
     {
-        return moment(this.date).format("MMMM Do YYYY, hh:mm");
+        return moment(this.date).format("MMMM Do YYYY, hh:mm a");
     }
 };
 
