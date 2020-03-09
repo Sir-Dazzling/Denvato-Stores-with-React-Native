@@ -14,6 +14,9 @@ const ProductsOverviewScreen = (props) =>
     //Setting state for app loading items or not
     const [isLoading, setIsLoading] = useState(false);
 
+    //Setting state of screen refreshing
+    const [isRefreshing, setIsRefreshing] = useState(false); 
+
     //Setting error of fetching process
     const [error, setError] = useState();
 
@@ -27,7 +30,7 @@ const ProductsOverviewScreen = (props) =>
     {
         console.log("Loading Products");
         setError(null);
-        setIsLoading(true);
+        setIsRefreshing(true);
         try
         {
             await dispatch(productActions.fetchProducts());
@@ -36,14 +39,18 @@ const ProductsOverviewScreen = (props) =>
         {
             setError(err.message);
         }
-        setIsLoading(false);
+        setIsRefreshing(false);
     },[dispatch, setIsLoading, setError]);
 
     useEffect(() => 
     {
-        loadProducts();
+        setIsLoading(true);
+        loadProducts().then(() => 
+        {
+            setIsLoading(false);
+        });
     },[dispatch, loadProducts]);
-
+ 
     //adding navigation listener
     useEffect(() => 
     {
@@ -86,14 +93,16 @@ const ProductsOverviewScreen = (props) =>
     if(!isLoading && products.length === 0)
     {
         return (
-            <View style = {styles.spinner}>
+            <View style = {styles.centered}>
                 <Text>No Products Found</Text>
             </View>
         );
     }
 
     return (
-            <FlatList 
+            <FlatList
+                onRefresh = {loadProducts}
+                refreshing = {isRefreshing} 
                 data = {products} 
                 renderItem = {itemData => (
                     <ProductItem 
