@@ -77,7 +77,7 @@ const CategoryProductList = (props) =>
     //Filtering the products depending on category picked
     const displayedProducts = products.filter(product => product.categoryIds.indexOf(catId) >= 0)
 
-    //Checking if an error ocured during processing fetch requests
+    //Checking if an error occured during processing fetch requests
     if(error)
     {
         <View style = {styles.centered}>
