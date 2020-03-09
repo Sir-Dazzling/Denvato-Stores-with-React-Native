@@ -1,5 +1,5 @@
-import React from 'react';
-import { FlatList, Button, Platform, Alert } from 'react-native';
+import React, {useState, useEffect, useCallback} from 'react';
+import { FlatList, Button, Platform, Alert, View, StyleSheet, ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
@@ -8,11 +8,49 @@ import ProductItem from '../../components/ProductItem';
 import Colors from '../../constants/Colors';
 import * as productActions from '../../store/actions/Products';
 
-const AdminProductsScreen = props => {
+const AdminProductsScreen = (props) => 
+{
+  //Setting state for app loading items or not
+  const [isLoading, setIsLoading] = useState(false);
+
+  //Setting error of fetching process
+  const [error, setError] = useState();
+
   const userProducts = useSelector(state => state.products.userProducts);
   const dispatch = useDispatch();
 
-  const editProductHandler = id => {
+  const loadProducts = useCallback(async () => 
+    {
+        console.log("Loading Products");
+        setError(null);
+        setIsLoading(true);
+        try
+        {
+            await dispatch(productActions.fetchProducts());
+        } 
+        catch(err)
+        {
+            setError(err.message);
+        }
+        setIsLoading(false);
+    },[dispatch, setIsLoading, setError]);
+
+    useEffect(() => 
+    {
+        loadProducts();
+    },[dispatch, loadProducts]);
+
+    //adding navigation listener
+    useEffect(() => 
+    {
+        const willFocusSub = props.navigation.addListener("willFocus", loadProducts);
+
+        return (() => {
+            willFocusSub.remove();
+        });
+    }, [loadProducts]);
+
+  const editProductHandler = (id) => {
     props.navigation.navigate('editProduct', { productId: id });
   };
 
@@ -28,6 +66,35 @@ const AdminProductsScreen = props => {
       }
     ]);
   };
+
+  //Checking if an error ocured during processing fetch requests
+  if(error)
+  {
+      <View style = {styles.spinner}>
+          <Text>An Error Occured</Text>
+          <Button title = "Try again" onPress = {loadProducts} color = {Colors.primary} />
+      </View>
+  }
+
+  //Checking if app is still loading items or not
+  if(isLoading)
+  {
+      return (
+          <View style = {styles.centered}>
+              <ActivityIndicator size = "large" color = {Colors.primary} />
+          </View>
+      );
+  }
+
+  //Checking if tere are no products to render or if list is empty
+  if(!isLoading && userProducts.length === 0)
+  {
+      return (
+          <View style = {styles.centered}>
+              <Text>No Products Found</Text>
+          </View>
+      );
+  }
 
   return (
     <FlatList
@@ -89,5 +156,14 @@ AdminProductsScreen.navigationOptions = navData => {
     )
   };
 };
+
+const styles = StyleSheet.create({
+  centered: 
+  {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center"
+  }
+});
 
 export default AdminProductsScreen;

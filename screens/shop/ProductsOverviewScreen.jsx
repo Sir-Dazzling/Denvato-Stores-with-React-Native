@@ -76,7 +76,7 @@ const ProductsOverviewScreen = (props) =>
     if(isLoading)
     {
         return (
-            <View style = {styles.spinner}>
+            <View style = {styles.centered}>
                 <ActivityIndicator size = "large" color = {Colors.primary} />
             </View>
         );
@@ -150,7 +150,7 @@ ProductsOverviewScreen.navigationOptions = (navigationData) =>
 };
 
 const styles = StyleSheet.create({
-    spinner : 
+    centered: 
     {
         flex: 1,
         justifyContent: "center",
