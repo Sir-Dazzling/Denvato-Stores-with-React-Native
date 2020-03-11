@@ -1,9 +1,10 @@
 import React from 'react';
 import {Platform,Text} from 'react-native';
-import {createAppContainer} from 'react-navigation';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+import {createMaterialTopTabNavigator} from 'react-navigation-tabs'
 import {Ionicons} from '@expo/vector-icons'; 
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 
@@ -15,6 +16,7 @@ import CartScreen from '../screens/shop/CartScreen';
 import OrdersScreen from '../screens/shop/OrdersScreen';
 import AdminProductsScreen from '../screens/admin/AdminProductsScreen';
 import EditProductsScreen from '../screens/admin/EditProductsScreen';
+import AuthScreen from '../screens/authentication/AuthScreen';
 import Colors from '../constants/Colors';
 
 //Configuring default Nav Stack styling
@@ -246,6 +248,21 @@ createMaterialBottomTabNavigator(tabScreenConfig,
     }
 });
 
+//Configuring the Top Tab element
+const topTabScreenConfig = 
+{
+    Login: 
+    {
+        screen: AuthScreen
+    },
+    SignUp: 
+    {
+        screen: AuthScreen
+    }
+};
+
+
+
 //Creating a drawer Navigator Element
 const MainNavigator =  createDrawerNavigator({
    Shopping: 
@@ -284,12 +301,49 @@ const MainNavigator =  createDrawerNavigator({
 {
     contentOptions: 
     {
-        activeTintColor: Colors.secondaryColor,
-        labelStyle: 
-        {
-            //fontFamily: "open-sans-bold"
-        }
+        activeTintColor: Colors.secondaryColor
     }
 });
 
-export default createAppContainer(MainNavigator);
+//Creating a Tab Navigator Element for Android or do the latter for Ios
+const authenticationTopTabNavigator = createMaterialTopTabNavigator(topTabScreenConfig,
+{
+    shifting: true,
+    navigationOptions: 
+    {
+        headerShown: false
+    },
+    tabBarOptions: 
+    {
+        style: 
+        {
+            backgroundColor: "black",
+            paddingVertical: 50
+        },
+        labelStyle:
+        {
+            fontSize: 40
+        },
+        activeTintColor: "white",
+        allowFontScaling: true,
+        indicatorStyle: 
+        {
+            backgroundColor: "none"
+        }
+    },
+    style: 
+    {
+        
+    }
+});
+
+const AuthNavigator = createStackNavigator({
+    Auth: authenticationTopTabNavigator
+});
+
+const WrapperNavigator = createSwitchNavigator({
+    Auth: AuthNavigator,
+    Shop: MainNavigator
+});
+
+export default createAppContainer(WrapperNavigator);

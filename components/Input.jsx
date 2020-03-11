@@ -64,7 +64,7 @@ const Input = props => {
 
   return (
     <View style={styles.formControl}>
-      <Text style={styles.label}>{props.label}</Text>
+      <Text style={{...styles.label, ...props.style}}>{props.label}</Text>
       <TextInput
         {...props}
         style={styles.input}
