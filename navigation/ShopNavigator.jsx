@@ -16,7 +16,8 @@ import CartScreen from '../screens/shop/CartScreen';
 import OrdersScreen from '../screens/shop/OrdersScreen';
 import AdminProductsScreen from '../screens/admin/AdminProductsScreen';
 import EditProductsScreen from '../screens/admin/EditProductsScreen';
-import AuthScreen from '../screens/authentication/AuthScreen';
+import LoginScreen from '../screens/authentication/LoginScreen';
+import SignUpScreen from '../screens/authentication/SignUpScreen';
 import Colors from '../constants/Colors';
 
 //Configuring default Nav Stack styling
@@ -253,11 +254,11 @@ const topTabScreenConfig =
 {
     Login: 
     {
-        screen: AuthScreen
+        screen: LoginScreen
     },
     SignUp: 
     {
-        screen: AuthScreen
+        screen: SignUpScreen
     }
 };
 
@@ -345,5 +346,4 @@ const WrapperNavigator = createSwitchNavigator({
     Auth: AuthNavigator,
     Shop: MainNavigator
 });
-
 export default createAppContainer(WrapperNavigator);

@@ -5,7 +5,7 @@ import {Ionicons} from '@expo/vector-icons';
 import Input from '../../components/Input';
 import Colors from '../../constants/Colors';
 
-const AuthScreen = (props) => 
+const LoginScreen = (props) => 
 {
     return (
         <KeyboardAvoidingView 
@@ -15,7 +15,8 @@ const AuthScreen = (props) =>
             <View style = {styles.loginContainer}>
                 <ScrollView>
                     <Input
-                        style = {styles.input} 
+                        style = {styles.input}
+                        inputColor = {styles.inputCol}
                         id = "email" 
                         label = "E-mail" 
                         keyboardType = "email-address"
@@ -27,7 +28,8 @@ const AuthScreen = (props) =>
                         initialValue = ""
                         />
                         <Input
-                        style = {styles.input} 
+                        style = {styles.input}
+                        inputColor = {styles.inputCol} 
                         id = "password" 
                         label = "Password" 
                         keyboardType = "default"
@@ -38,18 +40,21 @@ const AuthScreen = (props) =>
                         errorMessage = "Please enter a valid password."
                         onValueChange = {() => {}}
                         initialValue = ""/>
-                        <View style = {styles.forgotPasswordContainer}>
-                            <TouchableOpacity>
-                                <Text style = {styles.forgotPassword}>Forgot email/password?</Text>
-                            </TouchableOpacity>
+                        <View style = {styles.wrapper}>
+                            <View style = {styles.forgotPasswordContainer}>
+                                <TouchableOpacity>
+                                    <Text style = {styles.forgotPassword}>Forgot email/password?</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style = {styles.confirmBtn}>
+                                <TouchableOpacity >
+                                    <View>
+                                        <Ionicons name = "ios-arrow-round-forward" size = {50} color = "white"/>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                        <View style = {styles.confirmBtn}>
-                            <TouchableOpacity >
-                                <View>
-                                    <Ionicons name = "ios-arrow-round-forward" size = {50} color = "white"/>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
+                        
                 </ScrollView>
             </View>
         </KeyboardAvoidingView>
@@ -73,10 +78,21 @@ const styles = StyleSheet.create({
     {
         color: Colors.secondaryColor
     },
+    inputCol: 
+    {
+        color: "white"
+    },
+    wrapper: 
+    {
+        flexDirection: "column",
+        justifyContent: "space-between",
+        alignItems: "flex-end",
+        marginVertical: 30,
+        marginRight: 10
+
+    },
     confirmBtn: 
     {
-        marginLeft: 270,
-        marginVertical: 10,
         backgroundColor: Colors.secondaryColor,
         borderRadius: 30,
         width: 50,
@@ -85,13 +101,15 @@ const styles = StyleSheet.create({
     },
     forgotPasswordContainer: 
     {
-        marginLeft: 160,
-        marginVertical: 20,
-        width: 200
+        marginVertical: 20
     },
     forgotPassword: 
     {
         color: "white"
+    },
+    placeHolderTextCol: 
+    {
+        color: "white"
     }
 });
-export default AuthScreen;
+export default LoginScreen;
