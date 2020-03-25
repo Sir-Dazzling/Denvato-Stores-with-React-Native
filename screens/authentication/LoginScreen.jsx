@@ -1,12 +1,82 @@
-import React from 'react';
+import React, {useReducer, useCallback} from 'react';
 import {View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
+import {useDispatch} from 'react-redux';
 
 import Input from '../../components/Input';
 import Colors from '../../constants/Colors';
+import * as authActions from '../../store/actions/Auth';
+
+const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
+
+//Form reducer to manage form state
+const formReducer = (state, action) => 
+{
+  if (action.type === FORM_INPUT_UPDATE)
+  {
+    const updatedValues = 
+    {
+      ...state.inputValues,
+      [action.input]: action.value
+    };
+    const updatedValidities = 
+    {
+      ...state.inputValidities,
+      [action.input]: action.isValid
+    };
+    let updatedFormIsValid = true;
+    for (const key in updatedValidities) 
+    {
+      updatedFormIsValid = updatedFormIsValid && updatedValidities[key];
+    }
+    return {
+      formIsValid: updatedFormIsValid,
+      inputValidities: updatedValidities,
+      inputValues: updatedValues
+    };
+  }
+  return state;
+};
 
 const LoginScreen = (props) => 
 {
+    //Enabling useDispatch
+    const dispatch = useDispatch();
+
+    const [formState, dispatchFormState] = useReducer(formReducer, 
+    {
+        inputValues: 
+        {
+            email: "",
+            password: "",
+        },
+        inputValidities: 
+        {
+            email: false,
+            password: false
+        },
+        formIsValid: false
+    });
+
+    //Handler of Sign Up process
+    const signInHandler = () => 
+    {
+        dispatch(authActions.login(formState.inputValues.email, formState.inputValues.password));
+    };
+
+    //Handler for input chnage
+    const inputChangeHandler = useCallback((inputIdentifier, inputValue, inputValidity) => 
+    {
+      dispatchFormState({
+        type: FORM_INPUT_UPDATE,
+        value: inputValue,
+        isValid: inputValidity,
+        input: inputIdentifier
+      });
+    },
+        [dispatchFormState]
+    );
+
     return (
         <KeyboardAvoidingView 
             behavior = "padding"
@@ -24,10 +94,10 @@ const LoginScreen = (props) =>
                         email
                         autoCapitalize = "none"
                         errorMessage = "Please enter a valid email address."
-                        onValueChange = {() => {}}
+                        onInputChange = {inputChangeHandler}
                         initialValue = ""
                         />
-                        <Input
+                    <Input
                         style = {styles.input}
                         inputColor = {styles.inputCol} 
                         id = "password" 
@@ -38,22 +108,23 @@ const LoginScreen = (props) =>
                         minLength = {5}
                         autoCapitalize = "none"
                         errorMessage = "Please enter a valid password."
-                        onValueChange = {() => {}}
+                        onInputChange = {inputChangeHandler}
                         initialValue = ""/>
-                        <View style = {styles.wrapper}>
-                            <View style = {styles.forgotPasswordContainer}>
-                                <TouchableOpacity>
-                                    <Text style = {styles.forgotPassword}>Forgot email/password?</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style = {styles.confirmBtn}>
-                                <TouchableOpacity >
-                                    <View>
-                                        <Ionicons name = "ios-arrow-round-forward" size = {50} color = "white"/>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
+                    
+                    <View style = {styles.wrapper}>
+                        <View style = {styles.forgotPasswordContainer}>
+                            <TouchableOpacity>
+                                <Text style = {styles.forgotPassword}>Forgot email/password?</Text>
+                            </TouchableOpacity>
                         </View>
+                        <View style = {styles.confirmBtn}>
+                             <TouchableOpacity onPress = {signInHandler}>
+                                <View>
+                                     <Ionicons name = "ios-arrow-round-forward" size = {50} color = "white"/>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                         
                 </ScrollView>
             </View>

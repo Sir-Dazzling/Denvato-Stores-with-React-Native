@@ -1,5 +1,5 @@
 import React, {useReducer, useCallback} from 'react';
-import {View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, TouchableOpacity, Alert} from 'react-native';
+import {View, StyleSheet, ScrollView, KeyboardAvoidingView, TouchableOpacity, Alert} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {useDispatch} from 'react-redux';
 
@@ -66,7 +66,17 @@ const SignUpScreen = (props) =>
     //Handler of Sign Up process
     const signUpHandler = () => 
     {
-        dispatch(authActions.signUp(formState.inputValues.firstName,formState.inputValues.lastName,formState.inputValues.email, formState.inputValues.password));
+        if(formState.inputValues.password != formState.inputValues.cpassword)
+        {
+            Alert.alert('Error!', 'Password and Confrim Password does not match', 
+            [
+                { text: 'Okay' }
+            ]);
+        }
+        else
+        {
+            dispatch(authActions.signUp(formState.inputValues.firstName,formState.inputValues.lastName,formState.inputValues.email, formState.inputValues.password));
+        }  
     };
 
     //Handler for input chnage
@@ -81,15 +91,6 @@ const SignUpScreen = (props) =>
     },
         [dispatchFormState]
     );
-
-    //checking if password and confirm password matches
-    // if(inputValues.password != inputValues.cpassword)
-    // {
-    //     Alert.alert('password doesnt match confirm password', 'Please check the errors in the form.', 
-    //   [
-    //     { text: 'Okay' }
-    //   ]);
-    // }
 
     return (
         <KeyboardAvoidingView 
@@ -148,7 +149,7 @@ const SignUpScreen = (props) =>
                         password
                         minLength = {5}
                         autoCapitalize = "none"
-                        errorText = "Please enter a valid password."
+                        errorText = "Please make sure your password and confirm password are the same."
                         onInputChange = {inputChangeHandler}
                         initialValue = ""/>
                     <Input
@@ -162,8 +163,8 @@ const SignUpScreen = (props) =>
                         cpassword
                         minLength = {5}
                         autoCapitalize = "none"
-                        errortest = "Please make sure it matches with your password."
-                        onValueChange = {inputChangeHandler}
+                        errortext = "Please make sure it matches with your password."
+                        onInputChange = {inputChangeHandler}
                         initialValue = ""/>
                         <View style = {styles.wrapper}>
                             <View style = {styles.confirmBtn}>
@@ -173,8 +174,7 @@ const SignUpScreen = (props) =>
                                     </View>
                                 </TouchableOpacity>
                             </View>
-                        </View>
-                        
+                        </View>         
                 </ScrollView>
             </View>
         </KeyboardAvoidingView>
