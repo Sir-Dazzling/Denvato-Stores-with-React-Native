@@ -1,4 +1,4 @@
-import React, {useReducer, useCallback} from 'react';
+import React, {useReducer, useCallback, useEffect, useState} from 'react';
 import {View, StyleSheet, ScrollView, KeyboardAvoidingView, TouchableOpacity, Alert} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {useDispatch} from 'react-redux';
@@ -39,6 +39,12 @@ const formReducer = (state, action) =>
 
 const SignUpScreen = (props) => 
 {
+    //Montitoring loading process
+    const [isLoading, setIsLoading] = useState(false);
+
+    //Setting state of errors
+    const [error, setError] = useState();
+
     //Enabling useDispatch
     const dispatch = useDispatch();
 
@@ -63,21 +69,41 @@ const SignUpScreen = (props) =>
             formIsValid: false
       });
 
-    //Handler of Sign Up process
-    const signUpHandler = () => 
+      useEffect(() => 
     {
+        if(error)
+        {
+            Alert.alert("An error occured", error, [{text: "okay"}]);
+        }
+    }, [error]);
+
+    //Handler of Sign Up process
+    const signUpHandler = useCallback(async() => 
+    {
+        setError(null);
+        setIsLoading(true);
+
         if(formState.inputValues.password != formState.inputValues.cpassword)
         {
-            Alert.alert('Error!', 'Password and Confrim Password does not match', 
+            Alert.alert('Error!', 'Password and Confirm Password does not match', 
             [
                 { text: 'Okay' }
             ]);
         }
         else
         {
-            dispatch(authActions.signUp(formState.inputValues.firstName,formState.inputValues.lastName,formState.inputValues.email, formState.inputValues.password));
+            try 
+            {
+                await dispatch(authActions.signUp(formState.inputValues.firstName,formState.inputValues.lastName,formState.inputValues.email, formState.inputValues.password));
+                props.navigation.navigate("Shop");
+            }
+            catch(err)
+            {
+                setError(err.message);
+                setIsLoading(false);
+            }   
         }  
-    };
+    });
 
     //Handler for input chnage
     const inputChangeHandler = useCallback((inputIdentifier, inputValue, inputValidity) => 

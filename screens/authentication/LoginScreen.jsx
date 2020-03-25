@@ -1,5 +1,5 @@
-import React, {useReducer, useCallback} from 'react';
-import {View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
+import React, {useReducer, useCallback, useState, useEffect} from 'react';
+import {View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator, Alert} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {useDispatch} from 'react-redux';
 
@@ -40,6 +40,12 @@ const formReducer = (state, action) =>
 
 const LoginScreen = (props) => 
 {
+    //Montitoring loading process
+    const [isLoading, setIsLoading] = useState(false);
+
+    //Setting state of errors
+    const [error, setError] = useState();
+
     //Enabling useDispatch
     const dispatch = useDispatch();
 
@@ -58,11 +64,30 @@ const LoginScreen = (props) =>
         formIsValid: false
     });
 
-    //Handler of Sign Up process
-    const signInHandler = () => 
+    useEffect(() => 
     {
-        dispatch(authActions.login(formState.inputValues.email, formState.inputValues.password));
-    };
+        if(error)
+        {
+            Alert.alert("An error occured", error, [{text: "okay"}]);
+        }
+    }, [error]);
+
+    //Handler of Sign Up process
+    const signInHandler = useCallback(async() => 
+    {
+        setError(null);
+        setIsLoading(true);
+        try
+        {
+            await dispatch(authActions.login(formState.inputValues.email, formState.inputValues.password));
+            props.navigation.navigate("Shop");
+        } 
+        catch(err)
+        {
+            setError(err.message);
+            setIsLoading(false);
+        }    
+    });
 
     //Handler for input chnage
     const inputChangeHandler = useCallback((inputIdentifier, inputValue, inputValidity) => 
@@ -77,7 +102,7 @@ const LoginScreen = (props) =>
         [dispatchFormState]
     );
 
-    return (
+    return ( 
         <KeyboardAvoidingView 
             behavior = "padding"
             keyboardVerticalOffset = {50} 
@@ -117,13 +142,13 @@ const LoginScreen = (props) =>
                                 <Text style = {styles.forgotPassword}>Forgot email/password?</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style = {styles.confirmBtn}>
-                             <TouchableOpacity onPress = {signInHandler}>
+                        {isLoading ? <ActivityIndicator size = "large" color = {Colors.primary} /> : <View style = {styles.confirmBtn}>
+                            <TouchableOpacity onPress = {signInHandler}>
                                 <View>
-                                     <Ionicons name = "ios-arrow-round-forward" size = {50} color = "white"/>
+                                    <Ionicons name = "ios-arrow-round-forward" size = {50} color = "white"/>
                                 </View>
                             </TouchableOpacity>
-                        </View>
+                        </View>}
                     </View>
                         
                 </ScrollView>
