@@ -22,7 +22,7 @@ const inputReducer = (state, action) => {
   }
 };
 
-const Input = props => {
+const Input = (props) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.initialValue ? props.initialValue : '',
     isValid: props.initiallyValid,
@@ -53,6 +53,10 @@ const Input = props => {
       isValid = false;
     }
     if (props.minLength != null && text.length < props.minLength) {
+      isValid = false;
+    }
+    if(props.password != props.cpassword)
+    {
       isValid = false;
     }
     dispatch({ type: INPUT_CHANGE, value: text, isValid: isValid });
