@@ -36,10 +36,11 @@ export const fetchOrders = () =>
 
 export const addOrder = (cartItems, totalAmount) => 
 {
-    return async dispatch => {
+    return async (dispatch, getState) => {
+    const token = getState().auth.token;
     //storing orders to firebase server
     const date = new Date();
-    const response = await fetch("https://denvato-stores-mobile.firebaseio.com/orders/u1.json", 
+    const response = await fetch(`https://denvato-stores-mobile.firebaseio.com/orders/u1.json?auth=${token}`, 
     {
         method: "POST",
         headers: 

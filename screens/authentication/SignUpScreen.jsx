@@ -6,6 +6,7 @@ import {useDispatch} from 'react-redux';
 import Input from '../../components/Input';
 import Colors from '../../constants/Colors';
 import * as authActions from '../../store/actions/Auth';
+import { ActivityIndicator } from 'react-native-paper';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -193,13 +194,13 @@ const SignUpScreen = (props) =>
                         onInputChange = {inputChangeHandler}
                         initialValue = ""/>
                         <View style = {styles.wrapper}>
-                            <View style = {styles.confirmBtn}>
+                            {isLoading ? <ActivityIndicator /> : <View style = {styles.confirmBtn}>
                                 <TouchableOpacity onPress = {signUpHandler}>
                                     <View>
                                         <Ionicons name = "ios-arrow-round-forward" size = {50} color = "white"/>
                                     </View>
                                 </TouchableOpacity>
-                            </View>
+                            </View>}
                         </View>         
                 </ScrollView>
             </View>

@@ -10,13 +10,15 @@ import productsReducer from './store/reducers/Products';
 import categoriesReducer from './store/reducers/Categories';
 import cartReducer from './store/reducers/Cart';
 import ordersReducer from './store/reducers/Orders';
+import authenticationReducer from './store/reducers/Auth';
 
 //Creating a Root Reducer element
 const rootReducer = combineReducers({
   products: productsReducer,
   categories: categoriesReducer,
   cart: cartReducer,
-  orders: ordersReducer
+  orders: ordersReducer,
+  auth: authenticationReducer
 });
 
 //Creating a Store element
