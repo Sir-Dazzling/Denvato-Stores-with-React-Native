@@ -127,7 +127,8 @@ const AdminProductsScreen = (props) =>
   );
 };
 
-AdminProductsScreen.navigationOptions = navData => {
+AdminProductsScreen.navigationOptions =(navData) => 
+{
   return {
     headerTitle: 'Your Products',
     headerLeft: () =>
@@ -165,5 +166,4 @@ const styles = StyleSheet.create({
       alignItems: "center"
   }
 });
-
 export default AdminProductsScreen;

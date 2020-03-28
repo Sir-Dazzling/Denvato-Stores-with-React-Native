@@ -1,8 +1,9 @@
 import React from 'react';
-import {Platform,Text} from 'react-native';
+import {Platform,Text, SafeAreaView, TouchableOpacity, ToastAndroid, View, StyleSheet} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import {createDrawerNavigator} from 'react-navigation-drawer';
+import {createDrawerNavigator, DrawerItems} from 'react-navigation-drawer';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs'
 import {Ionicons} from '@expo/vector-icons'; 
@@ -17,9 +18,11 @@ import OrdersScreen from '../screens/shop/OrdersScreen';
 import AdminProductsScreen from '../screens/admin/AdminProductsScreen';
 import EditProductsScreen from '../screens/admin/EditProductsScreen';
 import LoginScreen from '../screens/authentication/LoginScreen';
+import StartUpScreen from '../screens/StartUpScreen';
 import SignUpScreen from '../screens/authentication/SignUpScreen';
 import Colors from '../constants/Colors';
-
+import * as authActions from '../store/actions/Auth';
+  
 //Configuring default Nav Stack styling
 const defaultStackNavOptions =  
 {
@@ -294,7 +297,30 @@ const MainNavigator =  createDrawerNavigator({
     contentOptions: 
     {
         activeTintColor: Colors.secondaryColor
-    }
+    },
+    contentComponent: (props) => 
+     {
+         //Enabling useDispatch
+         const dispatch = useDispatch();
+        return (
+            <View style = {{flex: 1,paddingTop: 40}}>
+                <SafeAreaView forceInset = {{top: "always", horizontal: "never"}}>
+                    <DrawerItems {...props} />
+                    <TouchableOpacity onPress = {() => 
+                        {
+                            dispatch(authActions.logout());
+                            props.navigation.navigate("Auth");
+                            //Displaying a toast notification to show user added to cart successfully
+                            ToastAndroid.show("Logged out Successfully", ToastAndroid.SHORT);
+                        }}>
+                        <View style = {styles.logOutContainer}>
+                            <Text style = {styles.logoutText}>Log Out</Text>
+                        </View>  
+                    </TouchableOpacity>
+                </SafeAreaView>
+            </View>
+        );
+     }
 });
 
 //Creating a drawer Navigator Element
@@ -336,6 +362,29 @@ const MainAdminNavigator =  createDrawerNavigator({
      contentOptions: 
      {
          activeTintColor: Colors.secondaryColor
+     },
+     contentComponent: (props) => 
+     {
+         //Enabling useDispatch
+         const dispatch = useDispatch();
+        return (
+            <View style = {{flex: 1,paddingTop: 40}}>
+                <SafeAreaView forceInset = {{top: "always", horizontal: "never"}}>
+                    <DrawerItems {...props} />
+                    <TouchableOpacity onPress = {() => 
+                        {
+                            dispatch(authActions.logout());
+                            props.navigation.navigate("Auth");
+                            //Displaying a toast notification to show user added to cart successfully
+                            ToastAndroid.show("Logged out Successfully", ToastAndroid.SHORT);
+                        }}>
+                        <View style = {styles.logOutContainer}>
+                            <Text style = {styles.logoutText}>Log Out</Text>
+                        </View>  
+                    </TouchableOpacity>
+                </SafeAreaView>
+            </View>
+        );
      }
  });
 
@@ -376,8 +425,25 @@ const AuthNavigator = createStackNavigator({
 });
 
 const WrapperNavigator = createSwitchNavigator({
+    StartUp: StartUpScreen,
     Auth: AuthNavigator,
     Shop: MainNavigator,
     AdminHub:  MainAdminNavigator
 });
+
+//creating Stylesheet
+const styles = StyleSheet.create({
+    logOutContainer: 
+    {
+        alignItems: "center",
+        paddingTop: 30
+    },
+    logoutText: 
+    {
+        color: "red",
+        fontWeight: "bold",
+        fontSize: 15
+    }
+});
+
 export default createAppContainer(WrapperNavigator);
