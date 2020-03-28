@@ -1,3 +1,5 @@
+import {LOGIN, SIGNUP} from '../actions/Auth';
+
 const initialState = 
 {
     token: null,

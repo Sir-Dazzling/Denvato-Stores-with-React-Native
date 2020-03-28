@@ -5,12 +5,13 @@ export const SET_ORDERS = "SET_ORDERS";
 
 export const fetchOrders = () => 
 {
-    return async dispatch => {
+    return async (dispatch, getState) => {
         //Executing async code
+        const userId = getState().auth.userId;
         try
         {
         //Fetching products from firebase server
-        const response = await fetch("https://denvato-stores-mobile.firebaseio.com/orders/u1.json");
+        const response = await fetch(`https://denvato-stores-mobile.firebaseio.com/orders/${userId}.json`);
 
         if(!response.ok)
         {
@@ -36,11 +37,12 @@ export const fetchOrders = () =>
 
 export const addOrder = (cartItems, totalAmount) => 
 {
+    //storing orders to firebase server
     return async (dispatch, getState) => {
     const token = getState().auth.token;
-    //storing orders to firebase server
+    const userId = getState().auth.userId;
     const date = new Date();
-    const response = await fetch(`https://denvato-stores-mobile.firebaseio.com/orders/u1.json?auth=${token}`, 
+    const response = await fetch(`https://denvato-stores-mobile.firebaseio.com/orders/${userId}.json?auth=${token}`, 
     {
         method: "POST",
         headers: 

@@ -8,7 +8,8 @@ export const SET_PRODUCTS = "SET_PRODUCTS";
 //Fetching latest products from Firebase
 export const fetchProducts = () => 
 {
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    const userId = getState().auth.userId;
     //Executing async code
     try
     {
@@ -25,7 +26,7 @@ export const fetchProducts = () =>
     
     for (const key in resData)
     {
-      loadedProducts.push(new Product(key, "u1", resData[key].title, resData[key].categoryIds, resData[key].imageUrl, resData[key].description, resData[key].price));
+      loadedProducts.push(new Product(key, userId, resData[key].title, resData[key].categoryIds, resData[key].imageUrl, resData[key].description, resData[key].price));
     }
 
     console.log(resData);
@@ -63,6 +64,7 @@ export const createProduct = (title, categoryIds, imageUrl, description, price) 
     //Executing async code
     //Fetching products from firebase server
     const token = getState().auth.token;
+    const userId = getState().auth.userId;
     const response = await fetch(`https://denvato-stores-mobile.firebaseio.com/products.json?auth=${token}`, 
     {
       method: "POST",
@@ -75,7 +77,8 @@ export const createProduct = (title, categoryIds, imageUrl, description, price) 
         categoryIds,
         imageUrl,
         description,
-        price
+        price,
+        adminId: userId
       })
     });
 
@@ -91,7 +94,8 @@ export const createProduct = (title, categoryIds, imageUrl, description, price) 
         categoryIds,
         imageUrl,
         description,
-        price
+        price,
+        adminId: userId
       }
     });
   }

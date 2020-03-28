@@ -263,7 +263,6 @@ const topTabScreenConfig =
 };
 
 
-
 //Creating a drawer Navigator Element
 const MainNavigator =  createDrawerNavigator({
    Shopping: 
@@ -289,14 +288,6 @@ const MainNavigator =  createDrawerNavigator({
        {
            drawerLabel: "Your Orders"
        }
-   },
-   Admin: 
-   {
-       screen: adminNavigator,
-       navigationOptions: 
-       {
-          drawerLabel: "Admin" 
-       }
    }
 },
 {
@@ -305,6 +296,48 @@ const MainNavigator =  createDrawerNavigator({
         activeTintColor: Colors.secondaryColor
     }
 });
+
+//Creating a drawer Navigator Element
+const MainAdminNavigator =  createDrawerNavigator({
+    Shopping: 
+    {
+        screen: shoppingBottomTabNavigator,
+        navigationOptions: 
+         {
+             drawerLabel: "Home"
+         }
+    },
+    allProducts: 
+    {
+        screen: allProductsNavigator,
+        navigationOptions: 
+        {
+            drawerLabel: "All Products"
+        }
+    },
+    userOrders: 
+    {
+        screen: ordersNavigator,
+        navigationOptions: 
+        {
+            drawerLabel: "Your Orders"
+        }
+    },
+    Admin: 
+    {
+        screen: adminNavigator,
+        navigationOptions: 
+        {
+           drawerLabel: "Admin" 
+        }
+    }
+ },
+ {
+     contentOptions: 
+     {
+         activeTintColor: Colors.secondaryColor
+     }
+ });
 
 //Creating a Tab Navigator Element for Android or do the latter for Ios
 const authenticationTopTabNavigator = createMaterialTopTabNavigator(topTabScreenConfig,
@@ -344,6 +377,7 @@ const AuthNavigator = createStackNavigator({
 
 const WrapperNavigator = createSwitchNavigator({
     Auth: AuthNavigator,
-    Shop: MainNavigator
+    Shop: MainNavigator,
+    AdminHub:  MainAdminNavigator
 });
 export default createAppContainer(WrapperNavigator);

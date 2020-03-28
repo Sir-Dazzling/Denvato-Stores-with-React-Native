@@ -1,9 +1,9 @@
 class Product
 {
-    constructor(id, ownerId, title, categoryIds, imageUrl, description, price) 
+    constructor(id, adminId, title, categoryIds, imageUrl, description, price) 
     {
         this.id = id;
-        this.ownerId = ownerId;
+        this.adminId = adminId;
         this.title = title;
         this.categoryIds = categoryIds;
         this.imageUrl = imageUrl;

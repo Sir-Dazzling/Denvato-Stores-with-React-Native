@@ -1,4 +1,3 @@
-//import {PRODUCTS} from '../../data/dummy-data';
 import {
   DELETE_PRODUCT,
   CREATE_PRODUCT,
@@ -9,22 +8,22 @@ import Product from '../../models/Product';
 
 const PRODUCTS = [];
 
-const initialState = {
-  availableProducts: PRODUCTS,
-  userProducts: PRODUCTS.filter(prod => prod.ownerId === 'u1')
+const initialState = 
+{
+  availableProducts: PRODUCTS
 };
 
-export default (state = initialState, action) => {
+export default (state = initialState, action) => 
+{
   switch (action.type) {
     case SET_PRODUCTS: 
     return {
-      availableProducts: action.products,
-      userProducts: action.products.filter(prod => prod.ownerId === 'u1')
+      availableProducts: action.products
     }
     case CREATE_PRODUCT:
       const newProduct = new Product(
         new Date().toString(),
-        'u1',
+        action.productData.adminId,
         action.productData.title,
         action.productData.categoryIds,
         action.productData.imageUrl,
@@ -33,40 +32,32 @@ export default (state = initialState, action) => {
       );
       return {
         ...state,
-        availableProducts: state.availableProducts.concat(newProduct),
-        userProducts: state.userProducts.concat(newProduct)
+        availableProducts: state.availableProducts.concat(newProduct)
       };
     case UPDATE_PRODUCT:
-      const productIndex = state.userProducts.findIndex(
+      const availableProductIndex = state.availableProducts.findIndex(
         prod => prod.id === action.pid
       );
+      
       const updatedProduct = new Product(
         action.pid,
-        state.userProducts[productIndex].ownerId,
+        state.availableProducts[availableProductIndex].adminId,
         action.productData.title,
         action.productData.categoryIds,
         action.productData.imageUrl,
         action.productData.description,
-        state.userProducts[productIndex].price
+        state.availableProducts[availableProductIndex].price
       );
-      const updatedUserProducts = [...state.userProducts];
-      updatedUserProducts[productIndex] = updatedProduct;
-      const availableProductIndex = state.availableProducts.findIndex(
-        prod => prod.id === action.pid
-      );
+    
       const updatedAvailableProducts = [...state.availableProducts];
       updatedAvailableProducts[availableProductIndex] = updatedProduct;
       return {
         ...state,
-        availableProducts: updatedAvailableProducts,
-        userProducts: updatedUserProducts
+        availableProducts: updatedAvailableProducts
       };
     case DELETE_PRODUCT:
       return {
         ...state,
-        userProducts: state.userProducts.filter(
-          product => product.id !== action.pid
-        ),
         availableProducts: state.availableProducts.filter(
           product => product.id !== action.pid
         )

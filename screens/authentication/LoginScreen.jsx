@@ -72,7 +72,9 @@ const LoginScreen = (props) =>
         }
     }, [error]);
 
-    //Handler of Sign Up process
+    
+
+    //Handler of Sign In process
     const signInHandler = useCallback(async() => 
     {
         setError(null);

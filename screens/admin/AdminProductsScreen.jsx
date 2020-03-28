@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import { FlatList, Button, Platform, Alert, View, StyleSheet, ActivityIndicator } from 'react-native';
+import { FlatList, Button, Platform, Alert, View, StyleSheet, ActivityIndicator, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
@@ -16,7 +16,7 @@ const AdminProductsScreen = (props) =>
   //Setting error of fetching process
   const [error, setError] = useState();
 
-  const userProducts = useSelector(state => state.products.userProducts);
+  const products = useSelector(state => state.products.availableProducts);
   const dispatch = useDispatch();
 
   const loadProducts = useCallback(async () => 
@@ -87,7 +87,7 @@ const AdminProductsScreen = (props) =>
   }
 
   //Checking if tere are no products to render or if list is empty
-  if(!isLoading && userProducts.length === 0)
+  if(!isLoading && products.length === 0)
   {
       return (
           <View style = {styles.centered}>
@@ -98,7 +98,7 @@ const AdminProductsScreen = (props) =>
 
   return (
     <FlatList
-      data={userProducts}
+      data={products}
       keyExtractor={item => item.id}
       renderItem={itemData => (
         <ProductItem

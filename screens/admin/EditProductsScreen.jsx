@@ -44,7 +44,7 @@ const EditProductScreen = (props) =>
   const [error, setError] = useState();
   const prodId = props.navigation.getParam('productId');
   const editedProduct = useSelector(state =>
-    state.products.userProducts.find(prod => prod.id === prodId)
+    state.products.availableProducts.find(prod => prod.id === prodId)
   );
   const dispatch = useDispatch();
 
@@ -211,7 +211,8 @@ const EditProductScreen = (props) =>
   );
 };
 
-EditProductScreen.navigationOptions = navData => {
+EditProductScreen.navigationOptions = (navData) => 
+{
   const submitFn = navData.navigation.getParam('submit');
   return {
     headerTitle: navData.navigation.getParam('productId')

@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, StyleSheet,ScrollView, FlatList} from 'react-native';
+import {useSelector} from 'react-redux';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 
 import HeaderButton from '../../components/HeaderButton';
@@ -10,6 +11,14 @@ import {CATEGORIES} from '../../data/dummy-data';
 
 const HomeScreen = (props) => 
 {
+    //Getting user id
+    const userId = useSelector(state => state.auth.userId);
+
+    //Redirecting Admin to Admin Screen
+    if(userId === "Pa1MtQwI1iOHH26OtzLvlMRyX1m2")
+    {
+        props.navigation.navigate("AdminHub");
+    }
     //To render grid items to screen
     const renderCategoryItems = (itemData) => 
     {
