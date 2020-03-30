@@ -187,7 +187,6 @@ const styles = StyleSheet.create({
         alignItems: "flex-end",
         marginVertical: 30,
         marginRight: 10
-
     },
     confirmBtn: 
     {
