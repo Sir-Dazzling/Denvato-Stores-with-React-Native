@@ -86,7 +86,7 @@ const AdminProductsScreen = (props) =>
       );
   }
 
-  //Checking if tere are no products to render or if list is empty
+  //Checking if there are no products to render or if list is empty
   if(!isLoading && products.length === 0)
   {
       return (
